@@ -1,64 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Note Sharing Platform</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 20px;
-        }
-
-        nav {
-            margin-bottom: 15px;
-        }
-
-        a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-        }
-
-        a:hover {
-            color: #4CAF50;
-        }
-
-        input, textarea {
-            width: 300px;
-            padding: 5px;
-            margin: 5px 0;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            margin-top: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        hr {
-            margin: 15px 0;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Note Sharing Platform</title>
+  <script src="https://www.gstatic.com/firebasejs/11.29.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.29.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.29.0/firebase-firestore.js"></script>
+  <style>
+    body { font-family: Arial; margin:20px; }
+    input, button { margin:5px; padding:5px; }
+  </style>
 </head>
 <body>
 
-<nav>
-    <a href="index.html">Home</a> |
-    <a href="upload.html">Upload</a> |
-    <a href="notes.html">Notes</a> |
-    <a href="index.html">Login</a>
-</nav>
-<hr>
+<h1>Note Sharing Platform</h1>
 
-<h1>Welcome to Note Sharing Platform</h1>
-<p>Share and view notes with fellow students!</p>
-
-<hr>
 <h2>Register</h2>
 <input type="email" id="registerEmail" placeholder="Email"><br>
 <input type="password" id="registerPassword" placeholder="Password"><br>
@@ -72,12 +28,8 @@
 <br><br>
 <button onclick="logout()">Logout</button>
 
-<script type="module">
-  // ✅ Latest Firebase module URLs (check Firebase docs if this ever changes)
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.29.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.29.0/firebase-auth.js";
-
-  // Your Firebase config from console
+<script>
+  // Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyAdXQEvMVnaHlXiCUsyqDXhnfCd_XJE1zQ",
     authDomain: "noteshare-7da31.firebaseapp.com",
@@ -88,43 +40,28 @@
   };
 
   // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
 
-  // Register new user
-  async function register() {
+  function register() {
     const email = document.getElementById("registerEmail").value;
     const password = document.getElementById("registerPassword").value;
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      alert("User registered successfully!");
-    } catch (error) {
-      alert(error.message);
-    }
+    auth.createUserWithEmailAndPassword(email, password)
+      .then(() => alert("User registered successfully!"))
+      .catch(e => alert(e.message));
   }
 
-  // Login existing user
-  async function login() {
+  function login() {
     const email = document.getElementById("loginEmail").value;
     const password = document.getElementById("loginPassword").value;
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      alert("Logged in!");
-    } catch (error) {
-      alert(error.message);
-    }
+    auth.signInWithEmailAndPassword(email, password)
+      .then(() => alert("Logged in!"))
+      .catch(e => alert(e.message));
   }
 
-  // Logout
-  async function logout() {
-    await signOut(auth);
-    alert("Logged out!");
+  function logout() {
+    auth.signOut().then(() => alert("Logged out!"));
   }
-
-  // Expose functions to HTML buttons
-  window.register = register;
-  window.login = login;
-  window.logout = logout;
 </script>
 
 </body>
