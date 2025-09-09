@@ -14,15 +14,16 @@
 
 <h1>Login Page</h1>
 
-<input type="email" id="loginEmail" placeholder="Email"><br>
-<input type="password" id="loginPassword" placeholder="Password"><br>
-<button onclick="login()">Login</button>
+<input type="email" id="loginEmail" placeholder="Email" required><br>
+<input type="password" id="loginPassword" placeholder="Password" required><br>
+<!-- Add type="button" to prevent page reload -->
+<button type="button" onclick="login()">Login</button>
 
 <br><br>
-<button onclick="logout()">Logout</button>
+<button type="button" onclick="logout()">Logout</button>
 
 <script>
-  // 1️⃣ Firebase configuration
+  // Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyAdXQEvMVnaHlXiCUsyqDXhnfCd_XJE1zQ",
     authDomain: "noteshare-7da31.firebaseapp.com",
@@ -32,21 +33,26 @@
     appId: "1:858758304612:web:564840d1db59af9a88e071"
   };
 
-  // 2️⃣ Initialize Firebase
+  // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
 
-  // 3️⃣ Login function
+  // Login function
   function login() {
     const email = document.getElementById("loginEmail").value;
     const password = document.getElementById("loginPassword").value;
+
+    if (!email || !password) {
+      alert("Please fill in email and password!");
+      return;
+    }
 
     auth.signInWithEmailAndPassword(email, password)
       .then(() => alert("Logged in!"))
       .catch(e => alert(e.message));
   }
 
-  // 4️⃣ Logout function
+  // Logout function
   function logout() {
     auth.signOut().then(() => alert("Logged out!"));
   }
