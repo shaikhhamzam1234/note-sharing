@@ -51,7 +51,7 @@
     <a href="index.html">Home</a> |
     <a href="upload.html">Upload</a> |
     <a href="notes.html">Notes</a> |
-    <a href="login.html">Login</a>
+    <a href="index.html">Login</a>
 </nav>
 <hr>
 
@@ -73,9 +73,11 @@
 <button onclick="logout()">Logout</button>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+  // ✅ Latest Firebase module URLs (check Firebase docs if this ever changes)
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.29.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.29.0/firebase-auth.js";
 
+  // Your Firebase config from console
   const firebaseConfig = {
     apiKey: "AIzaSyAdXQEvMVnaHlXiCUsyqDXhnfCd_XJE1zQ",
     authDomain: "noteshare-7da31.firebaseapp.com",
@@ -85,9 +87,11 @@
     appId: "1:858758304612:web:564840d1db59af9a88e071"
   };
 
+  // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
+  // Register new user
   async function register() {
     const email = document.getElementById("registerEmail").value;
     const password = document.getElementById("registerPassword").value;
@@ -99,6 +103,7 @@
     }
   }
 
+  // Login existing user
   async function login() {
     const email = document.getElementById("loginEmail").value;
     const password = document.getElementById("loginPassword").value;
@@ -110,12 +115,13 @@
     }
   }
 
+  // Logout
   async function logout() {
     await signOut(auth);
     alert("Logged out!");
   }
 
-  // expose functions to HTML buttons
+  // Expose functions to HTML buttons
   window.register = register;
   window.login = login;
   window.logout = logout;
@@ -123,4 +129,3 @@
 
 </body>
 </html>
-
