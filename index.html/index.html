@@ -1,36 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Note Sharing Platform</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f9; }
-    header { background: #4CAF50; color: white; padding: 20px; text-align: center; }
-    nav { background: #333; padding: 10px; text-align: center; }
-    nav a { color: white; margin: 0 15px; text-decoration: none; }
-    nav a:hover { text-decoration: underline; }
-    section { padding: 30px; text-align: center; }
-    .btn { display: inline-block; margin-top: 15px; padding: 10px 20px; background: #4CAF50; color: white; border-radius: 5px; text-decoration: none; }
-    .btn:hover { background: #45a049; }
-  </style>
+    <meta charset="UTF-8">
+    <title>Note Sharing Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 20px;
+        }
+
+        nav {
+            margin-bottom: 15px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #4CAF50;
+        }
+
+        input, textarea {
+            width: 300px;
+            padding: 5px;
+            margin: 5px 0;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        hr {
+            margin: 15px 0;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>📚 Note Sharing Platform</h1>
-    <p>Share and access class notes easily</p>
-  </header>
 
-  <nav>
-    <a href="index.html">Home</a>
+<nav>
+    <a href="index.html">Home</a> |
+    <a href="upload.html">Upload</a> |
+    <a href="notes.html">Notes</a> |
     <a href="login.html">Login</a>
-    <a href="upload.html">Upload Notes</a>
-    <a href="notes.html">View Notes</a>
-  </nav>
+</nav>
+<hr>
 
-  <section>
-    <h2>Welcome!</h2>
-    <p>Our platform helps students share and access notes anytime, anywhere.</p>
-    <a href="login.html" class="btn">Get Started</a>
-  </section>
+<h1>Welcome to Note Sharing Platform</h1>
+<p>Share and view notes with fellow students!</p>
+
+<hr>
+<h2>Register</h2>
+<input type="email" id="registerEmail" placeholder="Email"><br>
+<input type="password" id="registerPassword" placeholder="Password"><br>
+<button onclick="register()">Register</button>
+
+<h2>Login</h2>
+<input type="email" id="loginEmail" placeholder="Email"><br>
+<input type="password" id="loginPassword" placeholder="Password"><br>
+<button onclick="login()">Login</button>
+
+<br><br>
+<button onclick="logout()">Logout</button>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAdXQEvMVnaHlXiCUsyqDXhnfCd_XJE1zQ",
+    authDomain: "noteshare-7da31.firebaseapp.com",
+    projectId: "noteshare-7da31",
+    storageBucket: "noteshare-7da31.firebasestorage.app",
+    messagingSenderId: "858758304612",
+    appId: "1:858758304612:web:564840d1db59af9a88e071"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  async function register() {
+    const email = document.getElementById("registerEmail").value;
+    const password = document.getElementById("registerPassword").value;
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert("User registered successfully!");
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  async function login() {
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      alert("Logged in!");
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  async function logout() {
+    await signOut(auth);
+    alert("Logged out!");
+  }
+
+  // expose functions to HTML buttons
+  window.register = register;
+  window.login = login;
+  window.logout = logout;
+</script>
+
 </body>
 </html>
+
