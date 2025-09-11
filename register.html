@@ -4,10 +4,6 @@
   <meta charset="UTF-8">
   <title>Register - Note Sharing</title>
   <link rel="stylesheet" href="style.css">
-
-  <!-- Firebase v11 -->
-  <script src="https://www.gstatic.com/firebasejs/11.29.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.29.0/firebase-auth.js"></script>
 </head>
 <body>
 
@@ -24,6 +20,11 @@
 <input type="password" id="regPassword" placeholder="Password"><br>
 <button onclick="register()">Register</button>
 
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/11.29.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.29.0/firebase-auth.js"></script>
+
+<!-- Your code -->
 <script>
   const firebaseConfig = {
     apiKey: "AIzaSyAdXQEvMVnaHlXiCUsyqDXhnfCd_XJE1zQ",
