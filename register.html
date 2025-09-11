@@ -7,46 +7,33 @@
 </head>
 <body>
 
-<nav>
-  <a href="index.html">Home</a>
-  <a href="register.html">Register</a>
-  <a href="login.html">Login</a>
-  <a href="upload.html">Upload</a>
-  <a href="notes.html">Notes</a>
-</nav>
+  <h1>Register</h1>
+  <input type="email" id="regEmail" placeholder="Email"><br>
+  <input type="password" id="regPassword" placeholder="Password"><br>
+  <button onclick="register()">Register</button>
 
-<h1>Register</h1>
-<input type="email" id="regEmail" placeholder="Email"><br>
-<input type="password" id="regPassword" placeholder="Password"><br>
-<button onclick="register()">Register</button>
+  <!-- Firebase SDKs v8 -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/11.29.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.29.0/firebase-auth.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAdXQEvMVnaHlXiCUsyqDXhnfCd_XJE1zQ",
+      authDomain: "noteshare-7da31.firebaseapp.com",
+      projectId: "noteshare-7da31",
+    };
 
-<!-- Your code -->
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyAdXQEvMVnaHlXiCUsyqDXhnfCd_XJE1zQ",
-    authDomain: "noteshare-7da31.firebaseapp.com",
-    projectId: "noteshare-7da31",
-    storageBucket: "noteshare-7da31.firebasestorage.app",
-    messagingSenderId: "858758304612",
-    appId: "1:858758304612:web:564840d1db59af9a88e071"
-  };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
+    function register() {
+      const email = document.getElementById("regEmail").value;
+      const password = document.getElementById("regPassword").value;
 
-  function register() {
-    const email = document.getElementById("regEmail").value;
-    const password = document.getElementById("regPassword").value;
-
-    auth.createUserWithEmailAndPassword(email, password)
-      .then(() => alert("User registered! Now go to login page."))
-      .catch(e => alert(e.message));
-  }
-</script>
-
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(() => alert("User registered! Now go to login page."))
+        .catch(e => alert(e.message));
+    }
+  </script>
 </body>
 </html>
