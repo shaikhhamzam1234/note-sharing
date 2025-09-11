@@ -7,68 +7,60 @@
 </head>
 <body>
 
-<nav>
-  <a href="index.html">Home</a>
-  <a href="register.html">Register</a>
-  <a href="login.html">Login</a>
-  <a href="upload.html">Upload</a>
-  <a href="notes.html">Notes</a>
-</nav>
+  <h1>Note Sharing Platform</h1>
 
-<h1>Welcome to Note Sharing Platform</h1>
+  <h2>Register</h2>
+  <input type="email" id="registerEmail" placeholder="Email"><br>
+  <input type="password" id="registerPassword" placeholder="Password"><br>
+  <button onclick="register()">Register</button>
 
-<h2>Register</h2>
-<input type="email" id="registerEmail" placeholder="Email"><br>
-<input type="password" id="registerPassword" placeholder="Password"><br>
-<button onclick="register()">Register</button>
+  <h2>Login</h2>
+  <input type="email" id="loginEmail" placeholder="Email"><br>
+  <input type="password" id="loginPassword" placeholder="Password"><br>
+  <button onclick="login()">Login</button>
 
-<h2>Login</h2>
-<input type="email" id="loginEmail" placeholder="Email"><br>
-<input type="password" id="loginPassword" placeholder="Password"><br>
-<button onclick="login()">Login</button>
+  <br><br>
+  <button onclick="logout()">Logout</button>
 
-<br><br>
-<button onclick="logout()">Logout</button>
+  <!-- ✅ Firebase SDK v8 -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/11.29.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.29.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.29.0/firebase-firestore.js"></script>
+  <!-- ✅ Your custom code -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAdXQEvMVnaHlXiCUsyqDXhnfCd_XJE1zQ",
+      authDomain: "noteshare-7da31.firebaseapp.com",
+      databaseURL: "https://noteshare-7da31-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "noteshare-7da31",
+      storageBucket: "noteshare-7da31.appspot.com",
+      messagingSenderId: "858758304612",
+      appId: "1:858758304612:web:564840d1db59af9a88e071"
+    };
 
-<!-- Your code -->
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyAdXQEvMVnaHlXiCUsyqDXhnfCd_XJE1zQ",
-    authDomain: "noteshare-7da31.firebaseapp.com",
-    projectId: "noteshare-7da31",
-    storageBucket: "noteshare-7da31.firebasestorage.app",
-    messagingSenderId: "858758304612",
-    appId: "1:858758304612:web:564840d1db59af9a88e071"
-  };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
+    function register() {
+      const email = document.getElementById("registerEmail").value;
+      const password = document.getElementById("registerPassword").value;
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(() => alert("User registered successfully!"))
+        .catch(e => alert(e.message));
+    }
 
-  function register() {
-    const email = document.getElementById("registerEmail").value;
-    const password = document.getElementById("registerPassword").value;
-    auth.createUserWithEmailAndPassword(email, password)
-      .then(() => alert("User registered successfully!"))
-      .catch(e => alert(e.message));
-  }
+    function login() {
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => alert("Logged in!"))
+        .catch(e => alert(e.message));
+    }
 
-  function login() {
-    const email = document.getElementById("loginEmail").value;
-    const password = document.getElementById("loginPassword").value;
-    auth.signInWithEmailAndPassword(email, password)
-      .then(() => alert("Logged in!"))
-      .catch(e => alert(e.message));
-  }
-
-  function logout() {
-    auth.signOut().then(() => alert("Logged out!"));
-  }
-</script>
-
+    function logout() {
+      auth.signOut().then(() => alert("Logged out!"));
+    }
+  </script>
 </body>
 </html>
