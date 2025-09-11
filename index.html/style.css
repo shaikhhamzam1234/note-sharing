@@ -1,51 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
+  font-family: 'Roboto', sans-serif;
+  background: #f5f7fa;
+  color: #333;
   margin: 0;
-  padding: 0;
-  text-align: center;
+  padding: 20px;
 }
 
 nav {
-  background: #333;
-  padding: 10px;
+  background: #4a90e2;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
 }
 
 nav a {
   color: white;
-  margin: 0 15px;
+  margin-right: 20px;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 500;
+  transition: color 0.3s;
 }
 
 nav a:hover {
-  color: #4CAF50;
+  color: #ffd700;
 }
 
 h1 {
-  color: #333;
+  color: #2c3e50;
+  margin-bottom: 12px;
 }
 
-button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin: 10px;
-  border-radius: 5px;
-  cursor: pointer;
+p.small {
+  font-size: 0.9rem;
+  color: #666;
 }
 
-button:hover {
-  background-color: #45a049;
-}
-
-.note {
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  margin: 10px auto;
-  padding: 15px;
-  max-width: 400px;
-  text-align: left;
-}
+input[type="text"], input[type="emai]()
