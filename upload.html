@@ -6,25 +6,15 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <h2>Upload Your Notes</h2>
+  <form>
+    <label for="title">Note Title:</label>
+    <input type="text" id="title" name="title" placeholder="Enter note title" required>
 
-<nav>
-  <a href="index.html">Home</a>
-  <a href="register.html">Register</a>
-  <a href="login.html">Login</a>
-  <a href="upload.html">Upload</a>
-  <a href="notes.html">Notes</a>
-</nav>
+    <label for="file">Choose File:</label>
+    <input type="file" id="file" name="file">
 
-<h2>Upload Your Notes</h2>
-<form>
-  <label for="title">Note Title:</label>
-  <input type="text" id="title" name="title" placeholder="Enter note title" required>
-
-  <label for="file">Choose File:</label>
-  <input type="file" id="file" name="file">
-
-  <button type="submit">Upload</button>
-</form>
-
+    <button type="submit">Upload</button>
+  </form>
 </body>
 </html>
