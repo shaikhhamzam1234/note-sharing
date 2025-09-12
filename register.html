@@ -9,22 +9,24 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
   <link rel="stylesheet" href="style.css">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="register.html">Register</a>
-    <a href="login.html">Login</a>
-    <a href="upload.html">Upload Note</a>
-    <a href="notes.html">Notes</a>
-  </nav>
+  <div class="container">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="register.html">Register</a>
+      <a href="login.html">Login</a>
+      <a href="upload.html">Upload Note</a>
+      <a href="notes.html">Notes</a>
+    </nav>
 
-  <h1>Register</h1>
-  <input type="email" id="regEmail" placeholder="Email" required><br>
-  <input type="password" id="regPassword" placeholder="Password (6+ chars)" required><br>
-  <button type="button" id="registerBtn">Register</button>
-  <p><a href="login.html">Already have an account? Login</a></p>
+    <h1>Register</h1>
+    <input type="email" id="regEmail" placeholder="Email" required><br>
+    <input type="password" id="regPassword" placeholder="Password (6+ chars)" required><br>
+    <button type="button" id="registerBtn">Register</button>
+    <p><a href="login.html">Already have an account? Login</a></p>
+  </div>
 
   <script>
     const firebaseConfig = {
@@ -44,12 +46,10 @@
     document.getElementById('registerBtn').onclick = () => {
       const email = document.getElementById('regEmail').value.trim();
       const password = document.getElementById('regPassword').value;
-
       if (!email || password.length < 6) {
-        alert('Enter a valid email and password (6+ chars).');
+        alert('Enter valid email and password (6+ chars)');
         return;
       }
-
       auth.createUserWithEmailAndPassword(email, password)
         .then(cred => {
           const uid = cred.user.uid;
