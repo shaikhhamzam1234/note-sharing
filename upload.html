@@ -40,7 +40,9 @@
       appId: "1:858758304612:web:564840d1db59af9a88e071"
     };
 
-    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
     const auth = firebase.auth();
     const db = firebase.database();
 
@@ -68,15 +70,18 @@
       newNoteRef.set({
         title: title,
         link: link,
-        user: user.email,
-        createdAt: Date.now()
+        owner: user.uid,
+        createdAt: firebase.database.ServerValue.TIMESTAMP
       })
       .then(() => {
         alert('Uploaded successfully!');
         document.getElementById('title').value = '';
         document.getElementById('link').value = '';
       })
-      .catch(e => alert('Error: ' + e.message));
+      .catch(e => {
+        alert('Error: ' + e.message);
+        console.error('Upload error:', e);
+      });
     };
   </script>
 </body>
