@@ -4,33 +4,34 @@
   <meta charset="UTF-8">
   <title>NoteShare — Home</title>
 
-  <!-- Use Firebase v8 (namespaced) so code uses global `firebase` -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
   <link rel="stylesheet" href="style.css">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="register.html">Register</a>
-    <a href="login.html">Login</a>
-    <a href="upload.html">Upload Note</a>
-    <a href="notes.html">Notes</a>
-  </nav>
+  <div class="container">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="register.html">Register</a>
+      <a href="login.html">Login</a>
+      <a href="upload.html">Upload Note</a>
+      <a href="notes.html">Notes</a>
+    </nav>
 
-  <h1>NoteShare</h1>
-  <p class="small">Share class notes via Google Drive links. Auth required to upload.</p>
+    <h1>Welcome to NoteShare</h1>
+    <p class="small">Share class notes via Google Drive links. Auth required to upload/view.</p>
 
-  <div id="status">
-    <p id="welcome">Checking login status…</p>
-    <button id="logoutBtn" style="display:none;">Logout</button>
+    <div id="status">
+      <p id="welcome">Checking login status…</p>
+      <button id="logoutBtn" style="display:none;">Logout</button>
+    </div>
+
   </div>
 
   <script>
-    // <-- REPLACE nothing here — this config matches your project
     const firebaseConfig = {
       apiKey: "AIzaSyAdXQEvMVnaHlXiCUsyqDXhnfCd_XJE1zQ",
       authDomain: "noteshare-7da31.firebaseapp.com",
@@ -41,10 +42,7 @@
       appId: "1:858758304612:web:564840d1db59af9a88e071"
     };
 
-    // Initialize Firebase (safe to call once on each page)
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
     const welcome = document.getElementById('welcome');
