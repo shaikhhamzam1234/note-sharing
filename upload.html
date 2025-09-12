@@ -2,20 +2,76 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Upload Notes</title>
+  <title>Upload Note — NoteShare</title>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
   <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
-  <link rel="stylesheet" href="style.css">
 <body>
-  <h2>Upload Your Notes</h2>
-  <form>
-    <label for="title">Note Title:</label>
-    <input type="text" id="title" name="title" placeholder="Enter note title" required>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="register.html">Register</a>
+    <a href="login.html">Login</a>
+    <a href="upload.html">Upload Note</a>
+    <a href="notes.html">Notes</a>
+  </nav>
 
-    <label for="file">Choose File:</label>
-    <input type="file" id="file" name="file">
+  <h1>Upload Note</h1>
+  <p>Paste Google Drive link of your notes (share as "Anyone with link can view"):</p>
+  <input type="text" id="title" placeholder="Title of notes"><br>
+  <input type="text" id="link" placeholder="Google Drive link"><br>
+  <button type="button" id="uploadBtn">Upload</button>
+  <p><a href="notes.html">View all notes</a></p>
 
-    <button type="submit">Upload</button>
-  </form>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAdXQEvMVnaHlXiCUsyqDXhnfCd_XJE1zQ",
+      authDomain: "noteshare-7da31.firebaseapp.com",
+      databaseURL: "https://noteshare-7da31-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "noteshare-7da31",
+      storageBucket: "noteshare-7da31.appspot.com",
+      messagingSenderId: "858758304612",
+      appId: "1:858758304612:web:564840d1db59af9a88e071"
+    };
+
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+
+    // Ensure user logged in (redirect otherwise)
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        alert('Please login first.');
+        location.href = 'login.html';
+      }
+    });
+
+    document.getElementById('uploadBtn').onclick = () => {
+      const user = auth.currentUser;
+      if (!user) { alert('Please login first.'); location.href='login.html'; return; }
+
+      const title = document.getElementById('title').value.trim();
+      const link = document.getElementById('link').value.trim();
+      if (!title || !link) { alert('Fill title and link'); return; }
+
+      const newNoteRef = db.ref('notes').push();
+      newNoteRef.set({
+        title,
+        link,
+        user: user.email,
+        createdAt: Date.now()
+      })
+      .then(() => {
+        alert('Note uploaded successfully!');
+        document.getElementById('title').value = '';
+        document.getElementById('link').value = '';
+      })
+      .catch(e => alert('Error: ' + e.message));
+    };
+  </script>
 </body>
 </html>
