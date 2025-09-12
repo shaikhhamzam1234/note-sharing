@@ -8,22 +8,24 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
   <link rel="stylesheet" href="style.css">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="register.html">Register</a>
-    <a href="login.html">Login</a>
-    <a href="upload.html">Upload Note</a>
-    <a href="notes.html">Notes</a>
-  </nav>
+  <div class="container">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="register.html">Register</a>
+      <a href="login.html">Login</a>
+      <a href="upload.html">Upload Note</a>
+      <a href="notes.html">Notes</a>
+    </nav>
 
-  <h1>Login</h1>
-  <input type="email" id="loginEmail" placeholder="Email" required><br>
-  <input type="password" id="loginPassword" placeholder="Password" required><br>
-  <button type="button" id="loginBtn">Login</button>
-  <p><a href="register.html">New user? Register</a></p>
+    <h1>Login</h1>
+    <input type="email" id="loginEmail" placeholder="Email" required><br>
+    <input type="password" id="loginPassword" placeholder="Password" required><br>
+    <button type="button" id="loginBtn">Login</button>
+    <p><a href="register.html">New user? Register</a></p>
+  </div>
 
   <script>
     const firebaseConfig = {
@@ -42,8 +44,10 @@
     document.getElementById('loginBtn').onclick = () => {
       const email = document.getElementById('loginEmail').value.trim();
       const password = document.getElementById('loginPassword').value;
-      if (!email || !password) { alert('Fill both fields'); return; }
-
+      if (!email || !password) {
+        alert('Please fill both fields');
+        return;
+      }
       auth.signInWithEmailAndPassword(email, password)
         .then(() => {
           alert('Login successful!');
