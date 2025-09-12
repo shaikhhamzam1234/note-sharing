@@ -9,20 +9,22 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
   <link rel="stylesheet" href="style.css">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="register.html">Register</a>
-    <a href="login.html">Login</a>
-    <a href="upload.html">Upload Note</a>
-    <a href="notes.html">Notes</a>
-  </nav>
+  <div class="container">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="register.html">Register</a>
+      <a href="login.html">Login</a>
+      <a href="upload.html">Upload Note</a>
+      <a href="notes.html">Notes</a>
+    </nav>
 
-  <h1>All Notes</h1>
-  <p><a href="upload.html">Upload New Note</a> | <a href="index.html">Home</a></p>
-  <div id="notesList">Loading notes…</div>
+    <h1>All Notes</h1>
+    <p><a href="upload.html">Upload New Note</a> | <a href="index.html">Home</a></p>
+    <div id="notesList">Loading notes…</div>
+  </div>
 
   <script>
     const firebaseConfig = {
@@ -45,28 +47,23 @@
         notesList.innerHTML = 'Please <a href="login.html">login</a> to view notes.';
         return;
       }
-
       db.ref('notes').on('value', snapshot => {
         const notes = snapshot.val();
         if (!notes) {
-          notesList.innerHTML = 'No notes uploaded yet.';
+          notesList.innerHTML = 'No notes here yet.';
           return;
         }
-
-        // Build simple list
-        let html = '<table><tr><th>Title</th><th>Uploaded By</th><th>Open</th></tr>';
+        let html = '';
         Object.keys(notes).forEach(key => {
           const note = notes[key];
-          const safeTitle = (note.title || '').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-          const safeUser = (note.user || '').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-          const link = note.link || '#';
-          html += `<tr>
-                    <td>${safeTitle}</td>
-                    <td>${safeUser}</td>
-                    <td><a class="download" href="${link}" target="_blank" rel="noopener">Open Link</a></td>
-                   </tr>`;
+          html += `
+            <div class="card">
+              <h2>${note.title || ''}</h2>
+              <p>Uploaded by: ${note.user || 'Unknown'}</p>
+              <a class="download" href="${note.link}" target="_blank" rel="noopener">Open Link</a>
+            </div>
+          `;
         });
-        html += '</table>';
         notesList.innerHTML = html;
       }, err => {
         notesList.innerHTML = 'Error loading notes: ' + err.message;
