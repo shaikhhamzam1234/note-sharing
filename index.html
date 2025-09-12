@@ -2,19 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Note Sharing Platform</title>
+  <title>NoteShare — Home</title>
+
+  <!-- Use Firebase v8 (namespaced) so code uses global `firebase` -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
   <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
-  <link rel="stylesheet" href="style.css">
 <body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="register.html">Register</a>
+    <a href="login.html">Login</a>
+    <a href="upload.html">Upload Note</a>
+    <a href="notes.html">Notes</a>
+  </nav>
 
-  <h1>Note Sharing Platform</h1>
+  <h1>NoteShare</h1>
+  <p class="small">Share class notes via Google Drive links. Auth required to upload.</p>
 
-  <h2>Register</h2>
-  <input type="email" id="registerEmail" placeholder="Email"><br>
-  <input type="password" id="registerPassword" placeholder="Password"><br>
-  <button onclick="register()">Register</button>
+  <div id="status">
+    <p id="welcome">Checking login status…</p>
+    <button id="logoutBtn" style="display:none;">Logout</button>
+  </div>
 
-  <h2>Login</h2>
-  <input type="email" id="loginEmail" placeholder="Email"><br>
-  <input type="password" id="logi
+  <script>
+    // <-- REPLACE nothing here — this config matches your project
+    const firebaseConfig = {
+      apiKey: "AIzaSyAdXQEvMVnaHlXiCUsyqDXhnfCd_XJE1zQ",
+      authDomain: "noteshare-7da31.firebaseapp.com",
+      databaseURL: "https://noteshare-7da31-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "noteshare-7da31",
+      storageBucket: "noteshare-7da31.appspot.com",
+      messagingSenderId: "858758304612",
+      appId: "1:858758304612:web:564840d1db59af9a88e071"
+    };
+
+    // Initialize Firebase (safe to call once on each page)
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+    const auth = firebase.auth();
+
+    const welcome = document.getElementById('welcome');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        welcome.textContent = `Hello, ${user.email}`;
+        logoutBtn.style.display = 'inline-block';
+      } else {
+        welcome.innerHTML = 'You are not logged in. <a href="login.html">Login</a> or <a href="register.html">Register</a>';
+        logoutBtn.style.display = 'none';
+      }
+    });
+
+    logoutBtn.onclick = () => {
+      auth.signOut().then(() => {
+        alert('Logged out');
+        location.href = 'index.html';
+      }).catch(e => alert('Error: ' + e.message));
+    };
+  </script>
+</body>
+</html>
