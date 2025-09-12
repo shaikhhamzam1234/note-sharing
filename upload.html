@@ -9,23 +9,25 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
   <link rel="stylesheet" href="style.css">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="register.html">Register</a>
-    <a href="login.html">Login</a>
-    <a href="upload.html">Upload Note</a>
-    <a href="notes.html">Notes</a>
-  </nav>
+  <div class="container">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="register.html">Register</a>
+      <a href="login.html">Login</a>
+      <a href="upload.html">Upload Note</a>
+      <a href="notes.html">Notes</a>
+    </nav>
 
-  <h1>Upload Note</h1>
-  <p>Paste Google Drive link of your notes (share as "Anyone with link can view"):</p>
-  <input type="text" id="title" placeholder="Title of notes"><br>
-  <input type="text" id="link" placeholder="Google Drive link"><br>
-  <button type="button" id="uploadBtn">Upload</button>
-  <p><a href="notes.html">View all notes</a></p>
+    <h1>Upload Note</h1>
+    <p>Paste Google Drive link of your notes (must be "Anyone with link can view"):</p>
+    <input type="text" id="title" placeholder="Title"><br>
+    <input type="text" id="link" placeholder="Google Drive Link"><br>
+    <button type="button" id="uploadBtn">Upload</button>
+    <p><a href="notes.html">View all notes</a></p>
+  </div>
 
   <script>
     const firebaseConfig = {
@@ -42,7 +44,6 @@
     const auth = firebase.auth();
     const db = firebase.database();
 
-    // Ensure user logged in (redirect otherwise)
     auth.onAuthStateChanged(user => {
       if (!user) {
         alert('Please login first.');
@@ -52,21 +53,26 @@
 
     document.getElementById('uploadBtn').onclick = () => {
       const user = auth.currentUser;
-      if (!user) { alert('Please login first.'); location.href='login.html'; return; }
-
+      if (!user) {
+        alert('Please login first.');
+        location.href = 'login.html';
+        return;
+      }
       const title = document.getElementById('title').value.trim();
       const link = document.getElementById('link').value.trim();
-      if (!title || !link) { alert('Fill title and link'); return; }
-
+      if (!title || !link) {
+        alert('Please fill both fields');
+        return;
+      }
       const newNoteRef = db.ref('notes').push();
       newNoteRef.set({
-        title,
-        link,
+        title: title,
+        link: link,
         user: user.email,
         createdAt: Date.now()
       })
       .then(() => {
-        alert('Note uploaded successfully!');
+        alert('Uploaded successfully!');
         document.getElementById('title').value = '';
         document.getElementById('link').value = '';
       })
