@@ -34,12 +34,12 @@ nav a {
 
 nav a:hover {
   background-color: #20C997; /* secondary accent greenish */
-  border-radius: 100px;
+  border-radius: 5px;
 }
 
 h1, h2 {
   color: #2C3E50;
-  margin-bottom: 20px;
+  margin-bottom: 200px;
 }
 
 p.small {
