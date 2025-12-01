@@ -39,7 +39,7 @@ nav a:hover {
 
 h1, h2 {
   color: #2C3E50;
-  margin-bottom: 200px;
+  margin-bottom: 20px;
 }
 
 p.small {
@@ -52,8 +52,8 @@ input[type="password"],
 input[type="file"] {
   width: 100%;
   max-width: 100%;
-  padding: 10px;
-  margin: 10px 0;
+  padding: 0px;
+  margin: 0px 0;
   border: 1px solid #ced4da;
   border-radius: 6px;
   box-sizing: border-box;
