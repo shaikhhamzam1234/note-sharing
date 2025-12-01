@@ -18,9 +18,9 @@ body {
 
 nav {
   background: #17A2B8; /* primary teal-blue */
-  padding: 15px;
+  padding: 150px;
   border-radius: 80px;
-  margin-bottom: 300px;
+  margin-bottom: 30px;
 }
 
 nav a {
